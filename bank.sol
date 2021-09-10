@@ -62,4 +62,9 @@ contract Bank is Ownable, Destroyable { // Ce contract hérite de Ownable.sol et
         // le .transfer est une fonction qui permet d'envoyer des fonds vers une adresse.                                                                                                 
     }
 
+    //------------ GET BALANCE-----: j'affiche la balance de mon adresse.
+    function getBalance() public view returns(uint) {// fonction pour afficher une balance qui retourne un integer de l'adresse du owner du contrat.  
+        return balance[msg.sender];
+    }
+
 }
