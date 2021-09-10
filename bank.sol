@@ -51,4 +51,15 @@ contract Bank is Ownable, Destroyable { // Ce contract hérite de Ownable.sol et
         return balance[msg.sender]; 
 }
 
+//   ------- WITHDRAW------: Je retire les fonds du smart contract pour les envoyer vers mon adresse. 
+
+    function withdraw(uint amount) public onlyOwner returns (uint) { //La fonction withdraw permet de retirer des fonds déposer sur l'adresse de notre smart contract vers une autre adresse. Dans Cette
+        require(balance[msg.sender] >= amount, "Balance not sufficient"); // Je rajoute un error handling "Require" afin de m'assurer que l'adresse voulant  retirer ne retire pas plus que ce qu'il possède sur son compte. 
+        emit withdrawDone(amount, msg.sender);
+        balance[msg.sender] -= amount; // Je m'assure que la fonction withdraw retire bien les fonds présents sur l'adresse. 
+        //exmple il s'agit de l'adresse msg.sender vers laquelle les fonds sont envoyés. 
+        msg.sender.transfer(amount);   //msg.sender est une adresse
+        // le .transfer est une fonction qui permet d'envoyer des fonds vers une adresse.                                                                                                 
+    }
+
 }
