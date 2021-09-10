@@ -67,4 +67,9 @@ contract Bank is Ownable, Destroyable { // Ce contract hérite de Ownable.sol et
         return balance[msg.sender];
     }
 
+      function _transfer(address from, address to, uint amount) private { // fonction qui permet de débiter les fonds de l'envoyeur et de créditer 
+        balance[from] -= amount;                                        //le compte du receveur. Noter que cette fonction est "private"
+        balance[to] += amount;    
+    }
+
 }
