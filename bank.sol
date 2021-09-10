@@ -41,4 +41,14 @@ interface GovernmentInterface {
 
 contract Bank is Ownable, Destroyable { // Ce contract hérite de Ownable.sol et Destroyable.sol {
 
+         // ------ DEPOT-------: Je dépose des fonds depuis mon adresse vers l'adresse du smart contrat 
+    function deposit() public payable returns(uint) { //fonction deposit avec le mot-clé "payable" nous permet de déposer de l'Ether sur notre smart contract. 
+
+        balance[msg.sender] += msg.value; // Cette ligne peut être supprimer. Le mapping des balances "balance [msg.sender]" nous aident à identifier les balances internes de notre contract. Cela n'a rien a voir avec LA balance de notre smart contract itself. 
+        // En effet, la balance de notre smartcontract sera la somme de tous les deposit. En gros, le balance mapping "balance [msg.sender]" na rien a voir avec return balance[msg.sender]; //ici on retourne la balance de l'envoyeur "[msg.sender]"" updaté
+        // LA balance de notre smartcontract mais plutôt aavec les adresses qui ont déposé des fonds sur notre smartcontract. 
+        emit depositDone(msg.value, msg.sender);
+        return balance[msg.sender]; 
+}
+
 }
