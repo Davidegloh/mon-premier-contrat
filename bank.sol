@@ -14,6 +14,12 @@ interface GovernmentInterface {
 }
 //---------------------------------------------
 
+// DATA LOCATION
+    //storage - permanent storage of data (state variables)
+    //memory - temporary storage used in function execution
+    //call data - save arguments/input to our functions
+    
+
 
 contract Bank is Ownable, Destroyable { // Ce contract hérite de Ownable.sol et Destroyable.sol {
 
