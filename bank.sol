@@ -67,6 +67,25 @@ contract Bank is Ownable, Destroyable { // Ce contract hérite de Ownable.sol et
         return balance[msg.sender];
     }
 
+    //------------ TRANSFERT----- : je transfert mes fonds d'une adresse à une autre. 
+        function transfer (address recipient, uint amount) public {// fonction permettant de transferer des fonds d'une adresse à l'autre
+            require(balance[msg.sender] >= amount, "Balance not sufficient"); // error handling "require" pour s'assurer que l'envoyeur à les fonds suffisants pour l'envoi. 2eme argument c'est le message d'erreur
+            require(msg.sender != recipient, "Dont transfer money to yourself"); // error handling "require" pour s'assurer que l'envoyeur ne s'envoit pas les fonds à lui même
+            emit transfertDone(amount, msg.sender, recipient);
+            uint previousSenderBalance = balance[msg.sender];    
+            _transfer(msg.sender, recipient, amount); // déclaration de la fonction _transfer (ci-dessous) avec en argument les inputs : adresse de 
+                                                     // l'envoyeur, sdu receveur et le montant à transferer.
+            // Cette ligne est un exemple d'interaction avec un contrat externe. Dans cette exemple, il s'agit du contrat Government.sol. Cette ligne fait écho aux lignes 17 et 19.
+            // Elle permet d'envoyer les infos en paramètre à notre contrat externe. Il est aussi possible d'envoyer de la valeur vers le contrat 
+            //externe en rajoutant le {value: 1 ether} par ex. 
+            GovernmentInstance.addTransaction {value: 1 ether} (msg.sender, recipient, amount);   
+                                                     
+            assert(balance[msg.sender] == previousSenderBalance - amount); // assert est similaire à "require". Dans ce cas, il permet de s'assurer
+        //qu'à l'issue du transfert, la balance du sender ait bien sa balance moins le montant transféré. 
+        
+        //event Logs and further checks
+    }
+
       function _transfer(address from, address to, uint amount) private { // fonction qui permet de débiter les fonds de l'envoyeur et de créditer 
         balance[from] -= amount;                                        //le compte du receveur. Noter que cette fonction est "private"
         balance[to] += amount;    
