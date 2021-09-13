@@ -24,5 +24,7 @@ contract Government {
        return (transactionLog[_index].from,transactionLog[_index].to, transactionLog[_index].amount);
    }
 
-    
+    function getBalance() public returns (uint){
+        return(address(this).balance);  // Le this nous permet de cible le current contrat 
+    }
 }
