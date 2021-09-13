@@ -1,0 +1,8 @@
+// What is msg.sender ? 
+
+A contract's msg.sender is the address currently interacting with the contract. Be it a human or another contract.
+
+So if a human is interacting with a contract, msg.sender is the address of the person. And if another contract (B) is interacting with the contract, the contract (B)'s address becomes msg.sender.
+
+The owner of a contract is the address that deployed the contract to the blockchain, that is, the first msg.sender to interact with the contract. And the fact of that address being the one that deployed the contract will never change, meaning the owner will remain the owner forever except a change occurs via a valid contract function, for example transferOwnership(newOwner).
+The owner address is not called msg.owner but it can be saved in a public variable that other contracts can read in the future.
