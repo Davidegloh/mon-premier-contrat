@@ -12,13 +12,16 @@ contract Government {
    //on crée un array de transaction pour stocker les transactions.
    Transaction[] transactionLog;
 
-
    
    function addTransaction(address _from, address _to, uint amount) payable external {// on créé une fonction qui ajoute des transactions.
     // on créer une variable qui s'appelle "_transaction" qu'on stock en mémoire et qui contient en argument: adresse from, adresse to, le montant et l'id de la transaction que l'on retient 
       Transaction memory _transaction  = Transaction (_from, _to, amount, transactionLog.length); 
       // on pousse (push) la variable _transaction dans le tableau (Array) "TransactionLog"
       TransactionLog.push(_transaction);
+   }
+
+   function getTransaction(uint _index) public view returns (address, address, amount) {
+       return (transactionLog[_index].from,transactionLog[_index].to, transactionLog[_index].amount);
    }
 
     
